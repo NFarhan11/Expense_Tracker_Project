@@ -1,21 +1,15 @@
 <template>
-  <div class="min-h-screen flex bg-gray-100">
+  <div class="min-h-screen flex bg-gray-100 dark:bg-black">
     <!-- Sidebar -->
     <LayoutsSideBar :is-open="isSidebarOpen" />
 
     <!-- Main content -->
-    <div
-      class="flex flex-col flex-1"
-      :class="{
-        'ml-64': isSidebarOpen && !isMobile,
-        'ml-0': !isSidebarOpen || isMobile,
-      }"
-    >
+    <div class="flex flex-col flex-1" :class="{
+      'ml-64': isSidebarOpen && !isMobile,
+      'ml-0': !isSidebarOpen || isMobile,
+    }">
       <!-- Topbar -->
-      <LayoutsTopBar
-        @toggle-sidebar="toggleSidebar"
-        :is-sidebar-open="isSidebarOpen"
-      />
+      <LayoutsTopBar @toggle-sidebar="toggleSidebar" :is-sidebar-open="isSidebarOpen" />
 
       <!-- Dashboard Content -->
       <div class="pt-20">
