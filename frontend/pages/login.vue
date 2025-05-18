@@ -40,18 +40,13 @@ const state = reactive({
 });
 
 const router = useRouter();
-const { public: { authApiBase } } = useRuntimeConfig();
 
 const login = async () => {
     try {
-        const { token } = await $fetch(`${authApiBase}/login`, {
+        await $fetch('/api/login', {
             method: 'POST',
             body: { email: state.email, password: state.password }
         });
-
-        if (import.meta.client) {
-            localStorage.setItem('token', token);
-        }
         router.push('/');
     } catch (error) {
         console.error('Login failed:', error);

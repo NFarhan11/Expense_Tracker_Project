@@ -34,7 +34,6 @@ definePageMeta({
 
 const loading = ref(false);
 const router = useRouter();
-const { public: { authApiBase } } = useRuntimeConfig();
 
 const state = reactive({
   name: '',
@@ -46,14 +45,10 @@ const register = async () => {
   loading.value = true;
 
   try {
-    const response = await $fetch(`${authApiBase}/register`, {
+    await $fetch('/api/register', {
       method: 'POST',
       body: { name: state.name, email: state.email, password: state.password }
     });
-
-    if (import.meta.client) {
-      localStorage.setItem('token', response.token);
-    }
     router.push("/");
   } catch (error) {
     console.log("Registration failed: ", error);
