@@ -48,7 +48,6 @@ router.post("/login", async (req, res) => {
       [email]
     );
     const user = result.rows[0];
-    console.log(result);
 
     // No matching credentials
     if (!user) {
@@ -61,7 +60,7 @@ router.post("/login", async (req, res) => {
     }
 
     // Sign token
-    const token = signToken({ email, id: 1 });
+    const token = signToken({ email: user.email, id: user.id });
     res.status(201).json({ token });
   } catch (error) {
     res.status(500).json({ message: "Server error" });
