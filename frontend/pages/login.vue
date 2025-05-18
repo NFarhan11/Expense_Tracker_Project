@@ -6,9 +6,9 @@
         </div>
         <h2 class="text-2xl font-semibold text-white mb-2">Sign In to your Account</h2>
         <p class="text-gray-400 mb-6">Welcome back! Please enter your details</p>
-        <UForm @submit="login" :state="state" @click="login" class="space-y-4">
+        <UForm @submit="login" :state="state" class="space-y-4">
             <UFormField>
-                <UInput v-model="state.username" placeholder="Username" variant="outline" icon="heroicons-outline:mail"
+                <UInput v-model="state.email" placeholder="Email" variant="outline" icon="heroicons-outline:mail"
                     class="w-full" />
             </UFormField>
             <UFormField>
@@ -24,7 +24,7 @@
         <USeparator label="Or sign up now!" color="primary" type="solid" size="xs" class="mt-4" />
 
         <p class="text-center mt-4 text-gray-400 text-sm">
-            Don't have an account? <a href="#" class="text-blue-400 hover:underline">Sign Up</a>
+            Don't have an account? <NuxtLink to="/register" class="text-blue-400 hover:underline">Sign Up</NuxtLink>
         </p>
     </div>
 </template>
@@ -35,7 +35,7 @@ definePageMeta({
 });
 
 const state = reactive({
-    username: '',
+    email: '',
     password: '',
 });
 
@@ -46,7 +46,7 @@ const login = async () => {
     try {
         const { token } = await $fetch(`${authApiBase}/login`, {
             method: 'POST',
-            body: { username: state.username, password: state.password }
+            body: { email: state.email, password: state.password }
         });
 
         if (import.meta.client) {
