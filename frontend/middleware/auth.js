@@ -1,5 +1,8 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-  const token = import.meta.client ? localStorage.getItem("token") : null;
+  // Ignore SSR
+  if (!import.meta.client) return;
+
+  const token = localStorage.getItem("token");
   const {
     public: { authApiBase },
   } = useRuntimeConfig();
@@ -9,7 +12,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     return navigateTo("/login");
   }
 
-  // If has token
+  // Verify token
   if (token && to.path !== "/login") {
     try {
       await $fetch(`${authApiBase}/verify`, {
