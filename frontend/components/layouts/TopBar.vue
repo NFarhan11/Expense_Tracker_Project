@@ -33,8 +33,8 @@ defineProps({
 defineEmits(["toggle-sidebar"]);
 
 // Logout Button
-const logout = () => {
-  localStorage.removeItem('token');
+const logout = async () => {
+  await $fetch('/api/logout', { method: 'POST' });
   return navigateTo('/login');
-};
+}
 </script>
