@@ -1,19 +1,18 @@
 <template>
   <UContainer>
-    <p class="font-bold">Transaction</p>
-    <UForm :state="state" @submit="onSubmit">
-      <UCard class="w-1/2">
+    <UForm :state="storeTransact" @submit="onSubmit">
+      <UCard class="">
         <template #header>
           <p>Add Transaction</p>
         </template>
         <UFormField label="Category">
-          <USelect v-model="state.category" :items="items" placeholder="Select category" class="w-40" />
+          <USelect v-model="storeTransact.category" :items="items" placeholder="Select category" class="w-40" />
         </UFormField>
         <UFormField label="Date">
-          <UInput v-model="state.date" type="date" />
+          <UInput v-model="storeTransact.date" type="date" class="w-40" />
         </UFormField>
         <UFormField label="Amount">
-          <UInput v-model="state.amount" type="number" />
+          <UInput v-model="storeTransact.amount" type="number" class="w-40" />
         </UFormField>
         <template #footer>
           <UButton label="Submit" type="submit" />
@@ -21,44 +20,39 @@
         </template>
       </UCard>
     </UForm>
-
-    <div v-if="result">
-      Submitted: {{ state }}
-    </div>
   </UContainer>
 </template>
 
 <script setup>
-const state = reactive({
-  category: undefined,
-  date: undefined,
-  amount: undefined,
-});
+const storeTransact = useTransactionStore();
 
-// dummy dropdown
 const items = ref([
-  'Food & Drinks',
-  'Shop',
-  'House',
-  'Transportation',
-  'Vehicle',
-  'Life',
-  'Phone & PC',
-  'Finance',
-  'Savings',
-  'Income',
-  'Others'
+  'Food & Drinks', 'Shop', 'House', 'Transportation', 'Vehicle',
+  'Life', 'Phone & PC', 'Finance', 'Savings', 'Income', 'Others'
 ]);
 
 const result = ref(false);
-// Dummy function
+const lastSubmitted = ref(null);
+
 const onSubmit = () => {
-  result.value = true
-}
+  storeTransact.addTransaction({
+    category: storeTransact.category,
+    date: storeTransact.date,
+    amount: storeTransact.amount
+  });
+  lastSubmitted.value = {
+    category: storeTransact.category,
+    date: storeTransact.date,
+    amount: storeTransact.amount
+  };
+  result.value = true;
+};
+
 const onReset = () => {
-  state.category = undefined
-  state.date = undefined
-  state.amount = undefined
-  result.value = false
-}
+  storeTransact.category = "";
+  storeTransact.date = undefined;
+  storeTransact.amount = 0;
+  result.value = false;
+  lastSubmitted.value = null;
+};
 </script>
