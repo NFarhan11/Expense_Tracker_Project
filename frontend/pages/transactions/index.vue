@@ -55,28 +55,17 @@ const items = ref([
   'Life', 'Phone & PC', 'Finance', 'Savings', 'Income', 'Others'
 ]);
 
-const result = ref(false);
-const lastSubmitted = ref(null);
-
 const onSubmit = () => {
   storeTransact.addTransaction({
     category: storeTransact.category,
     date: storeTransact.date,
     amount: storeTransact.amount
   });
-  lastSubmitted.value = {
-    category: storeTransact.category,
-    date: storeTransact.date,
-    amount: storeTransact.amount
-  };
-  result.value = true;
 };
 
 const onReset = () => {
   storeTransact.category = "";
   storeTransact.date = undefined;
   storeTransact.amount = 0;
-  result.value = false;
-  lastSubmitted.value = null;
 };
 </script>
