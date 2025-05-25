@@ -5,7 +5,7 @@ export const useTransactionStore = defineStore("transaction", () => {
   const amount = ref(0);
 
   const addTransaction = (newTransaction) => {
-    transactions.value.push({ newTransaction });
+    transactions.value.push(newTransaction);
   };
 
   return { transactions, category, date, amount, addTransaction };
