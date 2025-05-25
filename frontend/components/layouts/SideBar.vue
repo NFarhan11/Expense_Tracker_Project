@@ -17,17 +17,12 @@
         <NuxtLink to="/" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
           <UIcon name="mdi:view-dashboard" class="w-5 h-5 mr-3" /> Dashboard
         </NuxtLink>
-        <NuxtLink to="/" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-          <UIcon name="mdi:comment-question" class="w-5 h-5 mr-3" /> Question
+        <NuxtLink to="/transactions"
+          class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
+          <UIcon name="mdi:money" class="w-5 h-5 mr-3" /> Transaction
         </NuxtLink>
         <NuxtLink to="/" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-          <UIcon name="mdi:comment-check" class="w-5 h-5 mr-3" /> Answer
-        </NuxtLink>
-        <NuxtLink to="/" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-          <UIcon name="mdi:lifebuoy" class="w-5 h-5 mr-3" /> Support
-        </NuxtLink>
-        <NuxtLink to="/" class="flex items-center px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-          <UIcon name="mdi:help-circle" class="w-5 h-5 mr-3" /> Help Centre
+          <UIcon name="mdi:user" class="w-5 h-5 mr-3" /> Users
         </NuxtLink>
       </div>
     </nav>
