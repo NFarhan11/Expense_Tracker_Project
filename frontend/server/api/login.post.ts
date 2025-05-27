@@ -3,10 +3,10 @@ import { AuthResponse } from "~/types/auth";
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const {
-    public: { authApiBase },
+    public: { apiGatewayBase },
   } = useRuntimeConfig();
 
-  const res = await $fetch<AuthResponse>(`${authApiBase}/login`, {
+  const res = await $fetch<AuthResponse>(`${apiGatewayBase}/login`, {
     method: "POST",
     body,
   });
