@@ -8,7 +8,7 @@ const app = express();
 // CORS
 app.use(
   cors({
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.GATEWAY_URL,
     methods: ["GET", "POST"],
     credentials: true,
   })
@@ -16,6 +16,11 @@ app.use(
 
 // Handle JSON
 app.use(express.json());
+
+app.use("/api/auth", (req, res, next) => {
+  console.log(`[Auth Service] Received: ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // Auth Routes
 app.use("/api/auth", authRoutes);

@@ -48,6 +48,11 @@
 </template>
 
 <script setup>
+definePageMeta({
+  layout: "default",
+  middleware: ['auth']
+});
+
 const storeTransact = useTransactionStore();
 
 const items = ref([

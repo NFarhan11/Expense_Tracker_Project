@@ -1,14 +1,15 @@
 export default defineEventHandler(async (event) => {
   const token = getCookie(event, "token");
   const {
-    public: { authApiBase },
+    public: { apiGatewayBase },
   } = useRuntimeConfig();
 
   if (!token) {
     throw createError({ statusCode: 401, message: "Unauthorized" });
   }
 
-  return await $fetch(`${authApiBase}/verify`, {
+  console.log("Fetching:", `${apiGatewayBase}/verify`); // Debug URL
+  return await $fetch(`${apiGatewayBase}/verify`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 });

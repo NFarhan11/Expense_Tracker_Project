@@ -8,7 +8,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      authApiBase: process.env.NUXT_PUBLIC_AUTH_API_BASE, // authentication
+      apiGatewayBase: process.env.NUXT_PUBLIC_API_GATEWAY_BASE, // authentication
     },
   },
 });

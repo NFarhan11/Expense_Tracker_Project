@@ -1,0 +1,22 @@
+# Ignore logs
+logs/
+*.log
+
+# Ignore temporary files
+*.pid
+*.lock
+*.swp
+*.tmp
+*.bak
+
+# Ignore compiled binaries (just in case)
+objs/
+nginx.exe
+nginx
+
+# Ignore backup config files
+conf/*.conf~
+
+# If you're on Windows
+Thumbs.db
+Desktop.ini

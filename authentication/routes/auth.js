@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { signToken, verifyToken } = require("../utils/jwt");
+const { signToken, refreshToken, verifyToken } = require("../utils/jwt");
 const pool = require("../database/user");
 const bcrypt = require("bcrypt");
 
@@ -27,10 +27,12 @@ router.post("/register", async (req, res) => {
       [name, email, hashedPassword]
     );
 
+    const user = newUser.rows[0];
+
     // Generate JWT
     const token = signToken({
-      email: newUser.rows[0].email,
-      id: newUser.rows[0].id,
+      email: user.email,
+      id: user.id,
     });
     res.status(201).json({ token });
   } catch (error) {
