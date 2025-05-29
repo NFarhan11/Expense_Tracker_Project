@@ -20,5 +20,5 @@ export default defineEventHandler(async (event) => {
     maxAge: 60 * 60,
   });
 
-  return { user: res.user };
+  return { token: res.token };
 });
