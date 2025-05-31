@@ -1,8 +1,9 @@
-const express = require("express");
+import express from "express";
+import { signToken, refreshToken, verifyToken } from "../utils/jwt.js";
+import pool from "../database/user.js";
+import bcrypt from "bcrypt";
+
 const router = express.Router();
-const { signToken, refreshToken, verifyToken } = require("../utils/jwt");
-const pool = require("../database/user");
-const bcrypt = require("bcrypt");
 
 // Register User
 router.post("/register", async (req, res) => {
