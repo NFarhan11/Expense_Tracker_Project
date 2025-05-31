@@ -1,18 +1,19 @@
-require("dotenv").config();
+import dotenv from "dotenv";
+import jsonwebtoken from "jsonwebtoken";
 
-const jwt = require("jsonwebtoken");
+dotenv.config();
 const SECRET = process.env.SECRET_KEY;
 
 const signToken = (payload) => {
-  return jwt.sign(payload, SECRET, { expiresIn: "15m" });
+  return jsonwebtoken.sign(payload, SECRET, { expiresIn: "15m" });
 };
 
 const refreshToken = (payload) => {
-  return jwt.sign(payload, SECRET, { expiresIn: "7d" });
+  return jsonwebtoken.sign(payload, SECRET, { expiresIn: "7d" });
 };
 
 const verifyToken = (token) => {
-  return jwt.verify(token, SECRET);
+  return jsonwebtoken.verify(token, SECRET);
 };
 
 module.exports = { signToken, refreshToken, verifyToken };
