@@ -1,7 +1,11 @@
 <?php
 
-use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\Api\V1\TransactionController;
+use App\Http\Controllers\Api\V1\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/transactions', [TransactionController::class, 'index']);
-// Route::post('/transactions', [TransactionController::class, 'store']);
+// /api/v1
+Route::group(["prefix" => "v1", "namespace" => "App\Http\Controllers\Api\V1"], function () {
+  Route::apiResource("users", UserController::class);
+  Route::apiResource("transactions", TransactionController::class);
+});
