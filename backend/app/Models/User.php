@@ -46,6 +46,7 @@ class User extends Authenticatable
         ];
     }
 
+    // NON MICROSERVICE COMPATIBLE
     public function transactions()
     {
         return $this->hasMany(Transaction::class);

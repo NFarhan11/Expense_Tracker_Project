@@ -11,6 +11,7 @@ class Transaction extends Model
 
     protected $fillable = ['category', 'date', 'amount'];
 
+    // NON MICROSERVICE COMPATIBLE
     public function user()
     {
         return $this->belongsTo(User::class);
