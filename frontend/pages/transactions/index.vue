@@ -1,18 +1,18 @@
 <template>
   <UContainer>
-    <UForm :state="storeTransact" @submit="onSubmit">
+    <UForm :state="state" @submit="onSubmit">
       <UCard class="mb-4">
         <template #header>
           <p class="text-xl font-bold">Add Transaction</p>
         </template>
         <UFormField label="Category">
-          <USelect v-model="storeTransact.category" :items="items" placeholder="Select category" class="w-40" />
+          <USelect v-model="state.category" :items="items" placeholder="Select category" class="w-40" />
         </UFormField>
         <UFormField label="Date">
-          <UInput v-model="storeTransact.date" type="date" class="w-40" />
+          <UInput v-model="state.date" type="date" class="w-40" />
         </UFormField>
         <UFormField label="Amount">
-          <UInput v-model="storeTransact.amount" type="number" class="w-40" />
+          <UInput v-model="state.amount" type="number" class="w-40" />
         </UFormField>
         <template #footer>
           <UButton label="Submit" type="submit" />
@@ -25,7 +25,7 @@
       <template #header>
         <p class="text-xl font-bold">Transactions</p>
       </template>
-      <div class="overflow-x-auto">
+      <!-- <div class="overflow-x-auto">
         <table class="w-full ">
           <thead>
             <tr class="bg-neutral">
@@ -42,7 +42,7 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </div> -->
     </UCard>
   </UContainer>
 </template>
@@ -53,24 +53,24 @@ definePageMeta({
   middleware: ['auth']
 });
 
-const storeTransact = useTransactionStore();
-
 const items = ref([
   'Food & Drinks', 'Shop', 'House', 'Transportation', 'Vehicle',
   'Life', 'Phone & PC', 'Finance', 'Savings', 'Income', 'Others'
 ]);
 
+const state = reactive({
+  category: '',
+  date: new Date().toISOString().split('T')[0],
+  amount: 0
+});
+
 const onSubmit = () => {
-  storeTransact.addTransaction({
-    category: storeTransact.category,
-    date: storeTransact.date,
-    amount: storeTransact.amount
-  });
+  console.log(JSON.stringify(state));
 };
 
 const onReset = () => {
-  storeTransact.category = "";
-  storeTransact.date = undefined;
-  storeTransact.amount = 0;
+  state.category = "";
+  state.date = new Date().toISOString().split('T')[0];
+  state.amount = 0;
 };
 </script>

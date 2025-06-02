@@ -5,6 +5,7 @@ export default defineEventHandler(async (event) => {
   const {
     public: { apiGatewayBase },
   } = useRuntimeConfig();
+  console.log("apiGatewayBase: ", apiGatewayBase);
 
   const res = await $fetch<AuthResponse>(`${apiGatewayBase}/login`, {
     method: "POST",
