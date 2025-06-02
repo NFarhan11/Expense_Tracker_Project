@@ -45,4 +45,10 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // NON MICROSERVICE COMPATIBLE
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }
