@@ -9,7 +9,7 @@ class Transaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category', 'date', 'amount'];
+    protected $fillable = ['user_id', 'category_id', 'date', 'amount'];
 
     // NON MICROSERVICE COMPATIBLE
     public function user()
