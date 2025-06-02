@@ -16,6 +16,7 @@ class UserController extends Controller
             QueryBuilder::for(User::class)
                 ->allowedSorts(['name'])
                 ->allowedFilters(['name', 'email'])
+                ->allowedIncludes(['transactions'])
                 ->paginate()
         );
     }
