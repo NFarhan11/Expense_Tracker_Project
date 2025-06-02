@@ -1,6 +1,5 @@
 # Ignore logs
-logs/
-*.log
+logs/*.log
 
 # Ignore temporary files
 *.pid

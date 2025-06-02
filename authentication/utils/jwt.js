@@ -4,16 +4,14 @@ import jsonwebtoken from "jsonwebtoken";
 dotenv.config();
 const SECRET = process.env.SECRET_KEY;
 
-const signToken = (payload) => {
+export const signToken = (payload) => {
   return jsonwebtoken.sign(payload, SECRET, { expiresIn: "15m" });
 };
 
-const refreshToken = (payload) => {
+export const refreshToken = (payload) => {
   return jsonwebtoken.sign(payload, SECRET, { expiresIn: "7d" });
 };
 
-const verifyToken = (token) => {
+export const verifyToken = (token) => {
   return jsonwebtoken.verify(token, SECRET);
 };
-
-module.exports = { signToken, refreshToken, verifyToken };
