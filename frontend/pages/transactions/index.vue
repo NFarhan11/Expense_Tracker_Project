@@ -6,7 +6,8 @@
           <p class="text-xl font-bold">Add Transaction</p>
         </template>
         <UFormField label="Category">
-          <USelect v-model="state.category" :items="items" placeholder="Select category" class="w-40" />
+          <USelect v-model="state.category_id" :items="items" value-key="id" placeholder="Select category"
+            class="w-40" />
         </UFormField>
         <UFormField label="Date">
           <UInput v-model="state.date" type="date" class="w-40" />
@@ -25,7 +26,7 @@
       <template #header>
         <p class="text-xl font-bold">Transactions</p>
       </template>
-      <!-- <div class="overflow-x-auto">
+      <div class="overflow-x-auto">
         <table class="w-full ">
           <thead>
             <tr class="bg-neutral">
@@ -35,14 +36,14 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(transaction, index) in storeTransact.transactions" :key="index" class="border-b">
-              <td class="px-4 py-2">{{ transaction.category }}</td>
-              <td class="px-4 py-2">{{ transaction.date }}</td>
-              <td class="px-4 py-2">RM{{ transaction.amount }}</td>
+            <tr v-for="(transact, index) in transactions" :key="index" class="border-b">
+              <td class="px-4 py-2">{{ transact.category }}</td>
+              <td class="px-4 py-2">{{ transact.date }}</td>
+              <td class="px-4 py-2">RM{{ transact.amount }}</td>
             </tr>
           </tbody>
         </table>
-      </div> -->
+      </div>
     </UCard>
   </UContainer>
 </template>
@@ -54,18 +55,29 @@ definePageMeta({
 });
 
 const items = ref([
-  'Food & Drinks', 'Shop', 'House', 'Transportation', 'Vehicle',
-  'Life', 'Phone & PC', 'Finance', 'Savings', 'Income', 'Others'
+  { label: 'Food & Drinks', id: 1 },
+  { label: 'Shop', id: 2 }, { label: 'House', id: 3 }, { label: 'Transportation', id: 4 }, { label: 'Vehicle', id: 5 },
+  { label: 'Life', id: 6 }, { label: 'Phone & PC', id: 7 }, { label: 'Finance', id: 8 }, { label: 'Savings', id: 9 }, { label: 'Income', id: 10 }, { label: 'Others', id: 11 }
 ]);
 
 const state = reactive({
-  category: '',
+  user_id: 26,
+  category_id: null,
   date: new Date().toISOString().split('T')[0],
   amount: 0
 });
 
-const onSubmit = () => {
-  console.log(JSON.stringify(state));
+const onSubmit = async () => {
+  // POST /api/transactions
+  try {
+    const res = await $fetch('/api/transactions', {
+      method: 'POST',
+      body: { ...state }
+    });
+    console.log(res)
+  } catch {
+
+  }
 };
 
 const onReset = () => {
@@ -73,4 +85,8 @@ const onReset = () => {
   state.date = new Date().toISOString().split('T')[0];
   state.amount = 0;
 };
+
+// load transactions
+// GET /api/transactions
+let transactions = []
 </script>
