@@ -1,19 +1,24 @@
 // POST api/v1/transactions
 export default defineEventHandler(async (event) => {
-  // return "post handler";
-  const body = await readBody(event);
-  console.log("body: ", body); // body:  { user_id: 26, category_id: 1, date: '2025-06-05', amount: 2 }
-  const headers = getRequestHeaders(event);
-  console.log("header: ", headers);
+  try {
+    const body = await readBody(event);
+    const headers = getRequestHeaders(event);
 
-  const res = await $fetch("http://localhost:4000/api/v1/transactions", {
-    method: "POST",
-    body,
-    headers: {
-      Authorization: headers.authorization || "",
-      "Content-Type": "application/json",
-    },
-  });
+    const res = await $fetch("http://localhost:8000/api/v1/transactions", {
+      method: "POST",
+      body,
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
 
-  return res;
+    return res;
+  } catch (err: any) {
+    throw createError({
+      statusCode: err?.response?.status || 500,
+      statusMessage: err?.data?.message || "Transaction submission failed",
+      data: err?.data || null,
+    });
+  }
 });
