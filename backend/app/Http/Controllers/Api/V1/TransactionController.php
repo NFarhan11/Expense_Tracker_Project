@@ -14,36 +14,57 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        return TransactionResource::collection(
-            QueryBuilder::for(Transaction::class)
-                ->allowedSorts(['amount', 'date'])
-                ->allowedFilters([
-                    AllowedFilter::exact('user_id'),
-                    AllowedFilter::exact('category_id')
-                ])
-                ->paginate()
-        );
+        try {
+            return TransactionResource::collection(
+                QueryBuilder::for(Transaction::class)
+                    ->defaultSort('-date')
+                    ->allowedSorts(['amount', 'date'])
+                    ->allowedFilters([
+                        AllowedFilter::exact('user_id'),
+                        AllowedFilter::exact('category_id')
+                    ])
+                    ->paginate()
+            );
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve transactions.'], 500);
+        }
     }
 
     public function show(Transaction $transaction)
     {
-        return new TransactionResource($transaction);
+        try {
+            return new TransactionResource($transaction);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to retrieve transaction.'], 500);
+        }
     }
 
     public function store(StoreTransactionRequest $request)
     {
-        return new TransactionResource(Transaction::create($request->validated()));
+        try {
+            return new TransactionResource(Transaction::create($request->validated()));
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to create transaction.'], 500);
+        }
     }
 
     public function update(UpdateTransactionRequest $request, Transaction $transaction)
     {
-        $transaction->update($request->validated());
-        return new TransactionResource($transaction);
+        try {
+            $transaction->update($request->validated());
+            return new TransactionResource($transaction);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to update transaction.'], 500);
+        }
     }
 
     public function destroy(Transaction $transaction)
     {
-        $transaction->delete();
-        return response()->json(['message' => 'Transaction deleted successfully.'], 200);
+        try {
+            $transaction->delete();
+            return response()->json(['message' => 'Transaction deleted successfully.'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to delete transaction.'], 500);
+        }
     }
 }
