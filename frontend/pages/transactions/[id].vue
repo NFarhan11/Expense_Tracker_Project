@@ -8,14 +8,17 @@
       <div class="overflow-x-auto">
         <p>Category: {{ transaction.category_id }}</p>
         <p>Amount: RM{{ transaction.amount }}</p>
+        <pre>[LOG transaction.id]:{{ transaction.id }}</pre>
       </div>
       <template #footer>
         <UButtonGroup>
           <UButton label="Edit" color="info" />
-          <UButton label="Delete" color="error" />
+          <UButton label="Delete" color="error" @click="deleteTransaction" />
         </UButtonGroup>
       </template>
     </UCard>
+
+    <!-- <EditTransactionModal /> -->
   </UContainer>
 </template>
 
@@ -28,7 +31,21 @@ definePageMeta({
 });
 
 const route = useRoute()
+const router = useRouter()
 const transactionId = route.params.id;
+
+const deleteTransaction = async () => {
+  // DELETE /api/transactions/:id
+  try {
+    const res = await $fetch(`/api/transactions/${transactionId}`, {
+      method: 'DELETE',
+    })
+    console.log(res)  // Toast Success Message
+    router.push('/transactions')
+  } catch (err) {
+    console.error("Delete failed: ", err) // KIV: Toast Error Message
+  }
+}
 
 const transaction = reactive({})
 const loadTransaction = async () => {
