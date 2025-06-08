@@ -2,7 +2,6 @@
 export default defineEventHandler(async (event) => {
   try {
     const body = await readBody(event);
-    const headers = getRequestHeaders(event);
 
     const res = await $fetch("http://localhost:8000/api/v1/transactions", {
       method: "POST",

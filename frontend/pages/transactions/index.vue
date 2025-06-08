@@ -38,7 +38,8 @@
           </thead>
           <tbody>
             <tr v-for="(transact, index) in transactions" :key="index"
-              class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
+              class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+              @click="router.push(`/transactions/${transact.id}`)">
               <td class="px-4 py-3 text-gray-800 dark:text-gray-100">{{ formatDate(transact.date) }}</td>
               <td class="px-4 py-3 text-gray-800 dark:text-gray-100">{{ categoryMap[transact.category_id] }}</td>
               <td class="px-4 py-3 text-gray-800 dark:text-gray-100">RM{{ transact.amount }}</td>
@@ -52,12 +53,13 @@
 </template>
 
 <script setup>
-import formatDate from '~/utils/format';
-
 definePageMeta({
   layout: "default",
   middleware: ['auth']
 });
+
+import formatDate from '~/utils/format';
+const router = useRouter()
 
 // temp
 const items = ref([
