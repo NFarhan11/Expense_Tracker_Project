@@ -38,7 +38,7 @@
           </thead>
           <tbody>
             <tr v-for="(transact, index) in transactions" :key="index"
-              class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
+              class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors cursor-pointer"
               @click="router.push(`/transactions/${transact.id}`)">
               <td class="px-4 py-3 text-gray-800 dark:text-gray-100">{{ formatDate(transact.date) }}</td>
               <td class="px-4 py-3 text-gray-800 dark:text-gray-100">{{ categoryMap[transact.category_id] }}</td>

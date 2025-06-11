@@ -8,17 +8,14 @@
       <div class="overflow-x-auto">
         <p>Category: {{ transaction.category_id }}</p>
         <p>Amount: RM{{ transaction.amount }}</p>
-        <pre>[LOG transaction.id]:{{ transaction.id }}</pre>
       </div>
       <template #footer>
         <UButtonGroup>
-          <UButton label="Edit" color="info" />
+          <EditTransactionButton :transaction="transaction" />
           <UButton label="Delete" color="error" @click="deleteTransaction" />
         </UButtonGroup>
       </template>
     </UCard>
-
-    <!-- <EditTransactionModal /> -->
   </UContainer>
 </template>
 

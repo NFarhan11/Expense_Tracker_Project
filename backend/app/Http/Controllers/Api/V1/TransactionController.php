@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreTransactionRequest;
-use App\Http\Requests\V1\UpdateTransactionRequest;
+use App\Http\Requests\V1\TransactionRequest;
 use App\Http\Resources\V1\TransactionResource;
 use App\Models\Transaction;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -39,7 +38,7 @@ class TransactionController extends Controller
         }
     }
 
-    public function store(StoreTransactionRequest $request)
+    public function store(TransactionRequest $request)
     {
         try {
             return new TransactionResource(Transaction::create($request->validated()));
@@ -48,7 +47,7 @@ class TransactionController extends Controller
         }
     }
 
-    public function update(UpdateTransactionRequest $request, Transaction $transaction)
+    public function update(TransactionRequest $request, Transaction $transaction)
     {
         try {
             $transaction->update($request->validated());
