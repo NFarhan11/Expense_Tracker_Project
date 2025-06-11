@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests\V1;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
-class StoreUserRequest extends FormRequest
+class UserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -21,10 +23,25 @@ class StoreUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required'],
         ];
+
+        if ($this->isMethod('patch') || $this->isMethod('put')) {
+            foreach ($rules as $key => &$rule) {
+                array_unshift($rule, 'sometimes');
+            }
+        }
+
+        return $rules;
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json([
+            'errors' => $validator->errors()
+        ], 422));
     }
 }

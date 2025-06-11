@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\V1\StoreUserRequest;
-use App\Http\Requests\V1\UpdateUserRequest;
+use App\Http\Requests\V1\UserRequest;
 use App\Http\Resources\V1\UserResource;
 use App\Models\User;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -27,12 +26,12 @@ class UserController extends Controller
         return new UserResource($user);
     }
 
-    public function store(StoreUserRequest $request)
+    public function store(UserRequest $request)
     {
         return new UserResource(User::create($request->validated()));
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
         $user->update($request->validated());
         return new UserResource($user);
