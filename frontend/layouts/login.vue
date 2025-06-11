@@ -5,7 +5,7 @@
                 <img src="/auth-img.jpg" alt="" class="object-cover w-full h-screen" />
             </div>
         </div>
-        <div class="w-1/2 h-screen bg-gray-900 bg-opacity-80 flex items-center justify-center">
+        <div class="w-1/2 bg-gray-900 bg-opacity-80 flex items-center justify-center">
             <slot />
         </div>
     </div>
